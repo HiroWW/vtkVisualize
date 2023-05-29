@@ -4,8 +4,8 @@ import pyvista as pv
 
 # VTKファイルのファイル名リスト
 filename1 = r'\\wsl.localhost\Ubuntu-20.04\home\hiroaki\sensitivity_measurement\sigma_point2\2d_run\flowCart.vtk'
-filename2 = r'\\wsl.localhost\Ubuntu-20.04\home\hiroaki\sensitivity_measurement\sigma_1point3\2d_run\flowCart.vtk'
-filename3 = r'\\wsl.localhost\Ubuntu-20.04\home\hiroaki\sensitivity_measurement\sigma_2point5\2d_run\flowCart.vtk'
+filename2 = r'\\wsl.localhost\Ubuntu-20.04\home\hiroaki\sensitivity_measurement\sigma_point5\2d_run\flowCart.vtk'
+filename3 = r'\\wsl.localhost\Ubuntu-20.04\home\hiroaki\sensitivity_measurement\sigma_point8\2d_run\flowCart.vtk'
 filenames = [filename1, filename2,filename3]
 labels = ["sigma=0.2","sigma=1.3","sigma=2.5"]
 # グラフのプロット用の配列
@@ -24,7 +24,7 @@ for filename in filenames:
 
 # 原点と半径を設定
 origin = [0, 0, 0]
-radius = 1.0
+radius = 2.0
 
 # 円周上の点の数
 num_points = 100
