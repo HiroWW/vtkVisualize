@@ -1,7 +1,7 @@
 import pyvista as pv
 
 # vtkファイルの読み込み
-filename = r'\\wsl.localhost\Ubuntu-20.04\home\hiroaki\sensitivity_measurement\sigma_2point5\2d_run\flowCart.vtk'
+filename = r'\\wsl.localhost\Ubuntu-20.04\home\hiroaki\sensitivity_measurement\RANS\2d_run\flowCart.vtk'
 mesh = pv.read(filename)
 
 # 表示倍率の設定
@@ -25,8 +25,8 @@ p.camera_set = True
 
 # プロットの実行
 print("begin plot")
-p.show(interactive=False)
-#p.show()
+#p.show(interactive=False)
+p.show()
 print("end plot")
 
 # 画像の保存

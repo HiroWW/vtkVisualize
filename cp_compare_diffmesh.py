@@ -5,17 +5,18 @@ import pyvista as pv
 # vtkファイルのパスリスト
 filename0 = r'\\wsl.localhost\Ubuntu-20.04\home\hiroaki\sensitivity_measurement\RANS\2d_run\flowCart.vtk'
 filename1 = r'\\wsl.localhost\Ubuntu-20.04\home\hiroaki\sensitivity_measurement\sigma_point1\2d_run\flowCart.vtk'
-filename2 = r'\\wsl.localhost\Ubuntu-20.04\home\hiroaki\sensitivity_measurement\sigma_2point5\2d_run\flowCart.vtk'
-vtk_files = [filename0, filename1, filename2]
+filename2 = r'\\wsl.localhost\Ubuntu-20.04\home\hiroaki\sensitivity_measurement\sigma_1point3\2d_run\flowCart.vtk'
+filename3 = r'\\wsl.localhost\Ubuntu-20.04\home\hiroaki\sensitivity_measurement\sigma_2point5\2d_run\flowCart.vtk'
+vtk_files = [filename0, filename1, filename2, filename3]
 
 # セルデータのキー（例えば "cp" や "p" など）を指定
 key = "p"
 
 # グラフの色
-colors = ["red", "blue", "green"]
+colors = ["red", "blue", "green","orange"]
 
 # グラフのラベル
-labels = ["RANS","sigma=0.2","sigma=2.5"]
+labels = ["RANS","sigma=0.2","sigma=1.8","sigma=2.5"]
 
 # 原点と半径を設定
 origin = [0, 0, 0]
