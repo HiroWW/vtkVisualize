@@ -1,7 +1,7 @@
 import pyvista as pv
 
 # vtkファイルの読み込み
-filename = r'\\wsl.localhost\Ubuntu-20.04\home\hiroaki\sensitivity_measurement\sigma_point2\2d_run\flowCart.vtk'
+filename = r'\\wsl.localhost\Ubuntu-20.04\home\hiroaki\sensitivity_measurement\sigma_2point5\2d_run\flowCart.vtk'
 mesh = pv.read(filename)
 
 # 表示倍率の設定
