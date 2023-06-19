@@ -8,7 +8,7 @@ import scipy.interpolate as spi
 
 # vtkファイルのパスリスト
 RANS = r'\\wsl.localhost\Ubuntu-20.04\home\hiroaki\sensitivity_measurement\RANS\2d_run\flowCart.vtk'
-ALM = r'\\wsl.localhost\Ubuntu-20.04\home\hiroaki\sensitivity_measurement\sigma_point02\flowCart.vtk'
+ALM = r'\Users\hiroa\Documents\CFD_experiment\0619center_of_gauss\results\vtk\flowCart_0.05d0.vtk'
 
 # セルデータのキー（例えば "cp" や "p" など）を指定
 key = "p"
@@ -71,7 +71,7 @@ for j in range(3):
 
         # 線形補間
         interp_func = spi.interp1d(theta_deg, scalar_data_circumference, kind='linear')
-        theta_deg_smooth = np.linspace(theta_deg.min(), theta_deg.max(), 100000)  # より滑らかな曲線を生成するために点を増やす
+        theta_deg_smooth = np.linspace(theta_deg.min(), theta_deg.max(), 10000)  # より滑らかな曲線を生成するために点を増やす
         scalar_data_circumference_smooth = interp_func(theta_deg_smooth)
 
         # グラフのプロット
@@ -120,4 +120,6 @@ for j in range(3):
     plt.ylabel(key)
     plt.title(f"Distribution of {key} along the circular path @ R = {radius}")
     plt.legend()
-    plt.show()
+    plt.savefig(f'\\\wsl.localhost\\Ubuntu-20.04\\home\\hiroaki\\report\\b4labmtg\\0620\\figures\\ranscompareAtR{radius}.png')
+    print(f"save complete at {radius}")
+    #plt.show()
