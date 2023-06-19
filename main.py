@@ -19,7 +19,7 @@ p = pv.Plotter()
 
 
 # vtkPolyDataを作成して円周を追加
-radius_list = [0.1, 0.3, 0.5]
+radius_list = [0.2, 0.3, 0.4]
 for radius in radius_list:
     theta = np.linspace(0, 2 * np.pi, 10000)
     x = radius * np.cos(theta)

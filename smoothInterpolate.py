@@ -1,6 +1,9 @@
+# 同じ値が連続した場合は削除したうえで線形補完を行う
+
 import numpy as np
 import matplotlib.pyplot as plt
 import pyvista as pv
+import scipy.interpolate as spi
 
 # vtkファイルのパスリスト
 filename0 = r'\\wsl.localhost\Ubuntu-20.04\home\hiroaki\sensitivity_measurement\RANS\2d_run\flowCart.vtk'
@@ -8,26 +11,22 @@ filename1 = r'\\wsl.localhost\Ubuntu-20.04\home\hiroaki\sensitivity_measurement\
 filename2 = r'\\wsl.localhost\Ubuntu-20.04\home\hiroaki\sensitivity_measurement\sigma_point2\2d_run\flowCart.vtk'
 filename3 = r'\\wsl.localhost\Ubuntu-20.04\home\hiroaki\sensitivity_measurement\sigma_1point0\2d_run\flowCart.vtk'
 vtk_files = [filename0, filename1, filename2, filename3]
-# filename1 = r'\\wsl.localhost\Ubuntu-20.04\home\hiroaki\sensitivity_measurement\sigma_point02\flowCart.vtk'
-# filename2 = r'\\wsl.localhost\Ubuntu-20.04\home\hiroaki\sensitivity_measurement\sigma_point2\2d_run\flowCart.vtk'
-# filename3 = r'\\wsl.localhost\Ubuntu-20.04\home\hiroaki\sensitivity_measurement\sigma_1point0\2d_run\flowCart.vtk'
-# vtk_files = [filename1, filename2, filename3]
+
 # セルデータのキー（例えば "cp" や "p" など）を指定
 key = "p"
 
 # グラフの色
-colors = ["red", "blue", "green","orange"]
-# colors = ["red", "blue", "green"]
+colors = ["red", "blue", "green", "orange"]
+
 # グラフのラベル
-labels = ["RANS","sigma=0.02","sigma=0.2","sigma=1.0"]
-# labels = ["sigma=0.02","sigma=0.2","sigma=1.0"]
+labels = ["RANS", "sigma=0.02", "sigma=0.2", "sigma=1.0"]
 
 # 原点と半径を設定
 origin = [0, 0, 0]
-radius = 0.4
+radius = 0.5
 
 # 円周上の点の数
-num_points = 100
+num_points = 10000
 
 # 円周上の点を生成
 theta = np.linspace(0, 2 * np.pi, num_points, endpoint=False)
@@ -55,14 +54,21 @@ for i, vtk_file in enumerate(vtk_files):
     # thetaの度数法への変換
     theta_deg = np.degrees(theta)
 
+    # 同じ値が連続している箇所を削除
+    indices_to_keep = np.diff(scalar_data_circumference) != 0
+    scalar_data_circumference = scalar_data_circumference[:-1][indices_to_keep]
+    theta_deg = theta_deg[:-1][indices_to_keep]
+
+    # 線形補間
+    interp_func = spi.interp1d(theta_deg, scalar_data_circumference, kind='linear')
+    theta_deg_smooth = np.linspace(theta_deg.min(), theta_deg.max(), 100000)  # より滑らかな曲線を生成するために点を増やす
+    scalar_data_circumference_smooth = interp_func(theta_deg_smooth)
+
     # グラフのプロット
-    plt.plot(theta_deg, scalar_data_circumference, color=colors[i], label=labels[i])
+    plt.plot(theta_deg_smooth, scalar_data_circumference_smooth, color=colors[i], label=labels[i])
 
 plt.xlabel("Theta(deg)")
 plt.ylabel(key)
 plt.title(f"Distribution of {key} along the circular path @ R = {radius}")
 plt.legend()
-#plt.ylim(0, 0.8)
-plt.savefig(r'\\wsl.localhost\Ubuntu-20.04\home\hiroaki\report\b4labmtg\0530\figures\ranscompareAtR04.png')
-# plt.savefig(r'\\wsl.localhost\Ubuntu-20.04\home\hiroaki\report\b4labmtg\0530\figures\compareAtR05.png')
 plt.show()

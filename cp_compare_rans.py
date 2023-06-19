@@ -3,11 +3,12 @@ import matplotlib.pyplot as plt
 import pyvista as pv
 
 # vtkファイルのパスリスト
-filename0 = r'\\wsl.localhost\Ubuntu-20.04\home\hiroaki\sensitivity_measurement\RANS\2d_run\flowCart.vtk'
-filename1 = r'\\wsl.localhost\Ubuntu-20.04\home\hiroaki\sensitivity_measurement\sigma_point02\flowCart.vtk'
-filename2 = r'\\wsl.localhost\Ubuntu-20.04\home\hiroaki\sensitivity_measurement\sigma_point2\2d_run\flowCart.vtk'
-filename3 = r'\\wsl.localhost\Ubuntu-20.04\home\hiroaki\sensitivity_measurement\sigma_1point0\2d_run\flowCart.vtk'
-vtk_files = [filename0, filename1, filename2, filename3]
+filename0 = r'\\wsl.localhost\Ubuntu-20.04\home\hiroaki\sensitivity_measurement\rae\flowCart.vtk'
+filename1 = r'\\wsl.localhost\Ubuntu-20.04\home\hiroaki\sensitivity_measurement\rae\flowALM.vtk'
+# filename1 = r'\\wsl.localhost\Ubuntu-20.04\home\hiroaki\sensitivity_measurement\sigma_point02\flowCart.vtk'
+# filename2 = r'\\wsl.localhost\Ubuntu-20.04\home\hiroaki\sensitivity_measurement\sigma_point2\2d_run\flowCart.vtk'
+# filename3 = r'\\wsl.localhost\Ubuntu-20.04\home\hiroaki\sensitivity_measurement\sigma_1point0\2d_run\flowCart.vtk'
+vtk_files = [filename0, filename1]
 # filename1 = r'\\wsl.localhost\Ubuntu-20.04\home\hiroaki\sensitivity_measurement\sigma_point02\flowCart.vtk'
 # filename2 = r'\\wsl.localhost\Ubuntu-20.04\home\hiroaki\sensitivity_measurement\sigma_point2\2d_run\flowCart.vtk'
 # filename3 = r'\\wsl.localhost\Ubuntu-20.04\home\hiroaki\sensitivity_measurement\sigma_1point0\2d_run\flowCart.vtk'
@@ -16,15 +17,15 @@ vtk_files = [filename0, filename1, filename2, filename3]
 key = "p"
 
 # グラフの色
-colors = ["red", "blue", "green","orange"]
+colors = ["red", "blue"]
 # colors = ["red", "blue", "green"]
 # グラフのラベル
-labels = ["RANS","sigma=0.02","sigma=0.2","sigma=1.0"]
+labels = ["RANS","sigma=0.2"]
 # labels = ["sigma=0.02","sigma=0.2","sigma=1.0"]
 
 # 原点と半径を設定
 origin = [0, 0, 0]
-radius = 0.4
+radius = 0.5
 
 # 円周上の点の数
 num_points = 100
@@ -63,6 +64,6 @@ plt.ylabel(key)
 plt.title(f"Distribution of {key} along the circular path @ R = {radius}")
 plt.legend()
 #plt.ylim(0, 0.8)
-plt.savefig(r'\\wsl.localhost\Ubuntu-20.04\home\hiroaki\report\b4labmtg\0530\figures\ranscompareAtR04.png')
+plt.savefig(r'\\wsl.localhost\Ubuntu-20.04\home\hiroaki\report\b4labmtg\0530\figures\RAEcompareAtR05.png')
 # plt.savefig(r'\\wsl.localhost\Ubuntu-20.04\home\hiroaki\report\b4labmtg\0530\figures\compareAtR05.png')
 plt.show()
