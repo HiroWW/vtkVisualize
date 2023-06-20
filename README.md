@@ -2,15 +2,25 @@
 CFDの計算結果として出力されるvtkファイルをPythonで操作するためのスクリプト群である。
 
 root
+
 ├─ Visualizer
+
 │   ├─ main.py
+
 │   └─ README.md
+
 ├─ CircleInterpolateMoveCenter
+
 │   ├─ main.py
+
 │   └─ README.md
+
 └─ Others
-      ├─ moveCenter.py
-      └─ README.md
+
+│　 ├─ moveCenter.py
+
+│   　└─ README.md
+
 
 ### Visualizer
 
