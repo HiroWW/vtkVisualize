@@ -30,6 +30,7 @@ def collect_vtk_files(directory):
         for file in files:
             if file.endswith(".vtk"):
                 vtk_files.append(os.path.join(root, file))
+    vtk_files.sort()
     return vtk_files
 
 # コマンドライン引数の解析
