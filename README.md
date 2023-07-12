@@ -1,6 +1,10 @@
 # vtkVisualize
 CFDの計算結果として出力されるvtkファイルをPythonで操作するためのスクリプト群である。
-
+## 動作環境
+- ubuntu20.04
+- windows11(powershell)
+  - での動作を確認している。
+## フォルダ構成 
 root
 
 ├─ Visualizer
