@@ -18,7 +18,9 @@ labels = ["RANS","mesh=0.05","mesh=0.1","mesh=0.2"]
 radiuses = [0.5, 1.5, 3.0]
 # 原点と半径を設定
 origin = [0.0, 0, 0]
-
+# 無次元化用物性パラメータ
+u = 0.2
+rho = 1.293
 # -------------------------------------------------------------------------
 
 print("-------------------------------------------------------------------")
@@ -91,12 +93,23 @@ for j, radius in enumerate(radiuses):
         # vtkファイルの読み込み
         mesh = pv.read(vtk_file)
         scalar_data = mesh.cell_data.get_array(key)
+        scalar_data_u = mesh.cell_data.get_array("u")
+        scalar_data_v = mesh.cell_data.get_array("v")
+        scalar_data_rho = mesh.cell_data.get_array("rho")
+        print("------ U -----")
+        print(scalar_data_u)
+        print("----  rho ----")
+        print(scalar_data_rho)
+        print("------ p ------")
+        print(scalar_data)
 
         # 円周上のセルのインデックスを取得
         cell_indices = mesh.find_closest_cell(points)
 
         # 円周上のセルデータを取得
         scalar_data_circumference = scalar_data[cell_indices]
+        # 無次元化
+        scalar_data_circumference = scalar_data_circumference / (1/2 * u**2 * rho)
 
         # thetaの度数法への変換
         theta_deg = np.degrees(theta)
