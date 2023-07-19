@@ -5,27 +5,18 @@ CFDの計算結果として出力されるvtkファイルをPythonで操作す�
 - windows11(powershell)
   - での動作を確認している。
 ## フォルダ構成 
+```
 root
-
 ├─ Visualizer
-
 │   ├─ main.py
-
 │   └─ README.md
-
-├─ CircleInterpolateMoveCenter
-
+├─ CircleInterpolate
 │   ├─ main.py
-
 │   └─ README.md
-
 └─ Others
-
-│　 ├─ moveCenter.py
-
-│   　└─ README.md
-
-
+ 　 ├─ moveCenter.py
+  　└─ README.md
+```
 ### Visualizer
 
 固定の縮小率・視点でvtkファイルを読み込み、可視化して、指定のパスに保存する。
