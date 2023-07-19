@@ -8,11 +8,16 @@ import argparse
 # -------------------------------------------------------------------------
 #                       parameter table  (CHANGE HERE)                    
 # グラフのラベル
-labels = ["RANS", "sigma=0.02", "sigma=0.2", "sigma=1.0", "sigma=1.5", "sigma=2.0","sigma=2.5"]
+# # fine
+# labels = ["RANS","mesh=0.01","mesh=0.0125","mesh=0.025"]
+# coarse
+labels = ["RANS","mesh=0.05","mesh=0.1","mesh=0.2"]
+# # all
+# labels = ["RANS","mesh=0.01","mesh=0.05","mesh=0.1"]
 # 半径
 radiuses = [0.5, 1.5, 3.0]
 # 原点と半径を設定
-origin = [0, 0, 0]
+origin = [0.0, 0, 0]
 
 # -------------------------------------------------------------------------
 
@@ -24,12 +29,23 @@ print("Do you want to show the plot result ?")
 print("Input here : y/n")
 flagShow = input()
 
+print("Do you use RANS vtk data ?")
+print("Input here : y/n")
+flagRANS = input()
+if (flagRANS == "y"):
+  print("-------------------------------------------------------------------")
+  print("                          MODE : RANS                              ")
+  print("            * Be carefull to put RANS data at first *              ")
+  print("-------------------------------------------------------------------")
+
+
 def collect_vtk_files(directory):
     vtk_files = []
     for root, dirs, files in os.walk(directory):
         for file in files:
             if file.endswith(".vtk"):
                 vtk_files.append(os.path.join(root, file))
+    # 名前順に並び替え
     vtk_files.sort()
     return vtk_files
 
@@ -90,10 +106,16 @@ for j, radius in enumerate(radiuses):
         scalar_data_circumference = scalar_data_circumference[:-1][indices_to_keep]
         theta_deg = theta_deg[:-1][indices_to_keep]
 
-        # スプライン補完
-        tck = spi.splrep(theta_deg, scalar_data_circumference)
-        theta_deg_smooth = np.linspace(theta_deg.min(), theta_deg.max(), 100000)  # より滑らかな曲線を生成するために点を増やす
-        scalar_data_circumference_smooth = spi.splev(theta_deg_smooth, tck)
+        if (i == 0 and flagRANS == "y"):
+          # RANSのデータは線形補完
+          interp_func = spi.interp1d(theta_deg, scalar_data_circumference, kind="linear")
+          theta_deg_smooth = np.linspace(theta_deg.min(), theta_deg.max(), 1000)
+          scalar_data_circumference_smooth = interp_func(theta_deg_smooth)
+        else :
+          # ALMのデータはスプライン補完
+          tck = spi.splrep(theta_deg, scalar_data_circumference)
+          theta_deg_smooth = np.linspace(theta_deg.min(), theta_deg.max(), 100000)  # より滑らかな曲線を生成するために点を増やす
+          scalar_data_circumference_smooth = spi.splev(theta_deg_smooth, tck)
 
         # グラフのプロット
         plt.plot(theta_deg_smooth, scalar_data_circumference_smooth, color=colors[i], label=labels[i])
@@ -104,7 +126,7 @@ for j, radius in enumerate(radiuses):
     plt.legend()
     if (flagShow == "y"):
         plt.show()  
-    plt.savefig(f"images/distribution_of_{key}_along_the_circular_path_at_{radius}.png")
+    plt.savefig(f"images/distribution_of_{key}_along_the_circular_path_at_{radius}_in_fine.png")
     print(f"plot complete @ R = {radius}")
 
 
