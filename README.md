@@ -1,5 +1,8 @@
 # vtkVisualize
 CFDの計算結果として出力されるvtkファイルをPythonで操作するためのスクリプト群である。
+
+それtecplotで良くねおじさん「それTecplotで良くね？」
+
 ## 動作環境
 - ubuntu20.04
 - windows11(powershell)
